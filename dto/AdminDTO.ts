@@ -1,5 +1,5 @@
 var md5 = require('md5');
-export class AdminDTO {
+class AdminDTO {
     private Nome!: String;
     private Senha!: String;
 
@@ -23,3 +23,4 @@ export class AdminDTO {
 
 
 }
+export default AdminDTO;

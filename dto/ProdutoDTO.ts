@@ -1,4 +1,4 @@
-export class ProdutoDTO {
+class ProdutoDTO {
     private Nome!: String;
     private Descricao?: String;
     private Quantidade?: number;
@@ -44,3 +44,4 @@ export class ProdutoDTO {
     }
 
 }
+export default ProdutoDTO

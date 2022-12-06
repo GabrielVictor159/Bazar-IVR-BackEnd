@@ -1,4 +1,4 @@
-export class CompraDTO {
+class CompraDTO {
     private Usuario_CPF!: number;
     private idProduto!: number;
     private quantidade!: number;
@@ -27,3 +27,5 @@ export class CompraDTO {
         this.quantidade = quantidade
     }
 }
+
+export default CompraDTO

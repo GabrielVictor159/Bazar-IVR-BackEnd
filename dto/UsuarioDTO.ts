@@ -1,5 +1,5 @@
 var md5 = require('md5');
-export class UsuarioDTO {
+ class UsuarioDTO {
     private CPF!: number;
     private Nome!: String;
     private Senha!: String;
@@ -44,3 +44,5 @@ export class UsuarioDTO {
         this.DataDeNascimento = DataDeNascimento
     }
 }
+
+export default UsuarioDTO;
