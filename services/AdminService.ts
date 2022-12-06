@@ -1,5 +1,4 @@
 import  AdminDTO  from "../dto/AdminDTO.js";
-import  db  from "../Infra/DB.js";
 import admin  from '../models/Admin.js';
 export class AdminService{
     constructor(){}

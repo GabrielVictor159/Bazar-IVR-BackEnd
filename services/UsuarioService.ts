@@ -1,5 +1,4 @@
 import UsuarioDTO from "../dto/UsuarioDTO";
-import  db  from "../Infra/DB.js";
 import Usuarios from "../models/Usuarios";
 var md5 = require('md5');
 export class UsuarioService{
