@@ -1,4 +1,4 @@
-import { AdminDTO } from "../dto/AdminDTO";
+import { AdminDTO } from "../dto/AdminDTO.js";
 const db = require('./Infra/DB')
 const admin = require('./models/Admin')
 export class AdminService{
