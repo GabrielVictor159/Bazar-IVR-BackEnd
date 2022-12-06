@@ -1,3 +1,5 @@
+import {AdminService} from "./services/AdminService";
+const adminService = new AdminService();
 const express = require('express');
 const app = express();
 const db = require('./Infra/DB')
@@ -10,6 +12,10 @@ app.use(express.json());
 app.get('/', async (req,res) =>{
  res.send("OK");
 });
+app.get('/', async (req,res) =>{
+    const Login =  await adminService.Login(req.body.Nome, req.body.Senha);
+    res.send(Login);
+   });
 app.post('/cadastrarAdmin', async (req, res)=>{
     console.log(req.body);
     await admin.create(req.body)
