@@ -2,7 +2,7 @@ const Sequelize = require('sequelize');
 import db from "../Infra/DB"
  const Usuarios = db.define('usuarios',{
    CPF:{
-    type: Sequelize.INTEGER,
+    type: Sequelize.STRING,
     allowNull: false,
     primaryKey:true
    },
@@ -23,5 +23,5 @@ import db from "../Infra/DB"
     allowNull:false
    }
 },{timestamps: false})
-
+Usuarios.sync();
 export default Usuarios;

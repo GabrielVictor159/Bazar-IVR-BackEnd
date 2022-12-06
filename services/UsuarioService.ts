@@ -6,28 +6,22 @@ export class UsuarioService{
     constructor(){}
 
     Cadastrar = async(CPF:number, Nome:String, Senha:String, endereco:String, DataDeNascimento:Date)=>{
-        const busca = await Usuarios.findByPk(CPF);
-        if(busca===null){
+        console.log("acessou o método")
+        let res:any
             try{
                 let dto = new UsuarioDTO(CPF, Nome, Senha, endereco, DataDeNascimento)
-                
-                    await Usuarios.create(dto.toString())
-                    .then(()=>{
-                        return "Usuario Cadastrado"
-                    }).catch(()=>{
-                        return "Houve algum problema"
-                    })
+                    
+                   await  Usuarios.create({CPF:dto.getCPF(),Nome:dto.getNome(), Senha:dto.getSenha(), Endereco:dto.getEndereco(), DataDeNascimento:dto.getDataDeNascimento()})
+                    return "usuario criado"
                 
             }
-            catch{
-                return "Por favor informe valores validos"
+            catch(exception:any){
+                return `Error: ${exception.message}`
             }
         }
-        else{
-            return "usuario ja existe"
-        }
+  
        
-    }
+    
 
     Logar = async(CPF:number, Senha:String)=>{
         let senha = md5(Senha)
@@ -59,7 +53,7 @@ export class UsuarioService{
             await Usuarios.update({Senha:md5(NovaSenha)},{
                 where:{
                     CPF:CPF,
-                    Senha:Senha
+                    Senha:md5(Senha)
                 }
             })
             return "Senha alterada"
@@ -73,9 +67,10 @@ export class UsuarioService{
             await Usuarios.update({Endereco:Endereco},{
                 where:{
                     CPF:CPF,
-                    Senha:Senha
+                    Senha:md5(Senha)
                 }
             })
+            return "Endereço alterado"
         }
         catch{
             return "Não foi possivel alterar o Endereço"
@@ -86,9 +81,10 @@ export class UsuarioService{
             await Usuarios.update({DataDeNascimento:DataDeNascimento},{
                 where:{
                     CPF:CPF,
-                    Senha:Senha
+                    Senha:md5(Senha)
                 }
             })
+            return "Data de nascimento alterada"
         }
         catch{
             return "Não foi possivel alterar a data de nascimento"
