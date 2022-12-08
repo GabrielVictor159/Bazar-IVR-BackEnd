@@ -1,22 +1,26 @@
 var md5 = require('md5');
  class UsuarioDTO {
-    private CPF!: number;
+    private CPF!: String;
     private Nome!: String;
     private Senha!: String;
     private Endereco!: String;
     private DataDeNascimento!: Date;
+    private Email!: String;
+    private Telefone!:number;
 
-    constructor(CPF: number, Nome: String, Senha: String, Endereco: String, DataDeNascimento: Date) {
+    constructor(CPF: String, Nome: String, Senha: String, Endereco: String, DataDeNascimento: Date, Email:String, Telefone:number) {
         this.CPF = CPF;
         this.Nome = Nome;
         this.Senha = md5(Senha);
         this.Endereco = Endereco;
         this.DataDeNascimento = DataDeNascimento;
+        this.Email = Email;
+        this.Telefone = Telefone;
     }
-    public getCPF(): number {
+    public getCPF(): String {
         return this.CPF
     }
-    public setCPF(CPF: number): void {
+    public setCPF(CPF: String): void {
         this.CPF = CPF;
     }
     public getNome(): String {
@@ -42,6 +46,18 @@ var md5 = require('md5');
     }
     public setDataDeNascimento(DataDeNascimento: Date): void {
         this.DataDeNascimento = DataDeNascimento
+    }
+    public getEmail(): String {
+        return this.Email
+    }
+    public setEmail(Email:String): void {
+        this.Email= Email
+    }
+    public getTelefone(): number {
+        return this.Telefone
+    }
+    public setTelefone(Telefone:number): void {
+        this.Telefone= Telefone
     }
 }
 

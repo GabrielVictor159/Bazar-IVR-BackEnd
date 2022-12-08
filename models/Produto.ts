@@ -30,5 +30,6 @@ const Produto = db.define('produto',{
     }
 },{timestamps: false})
 
+Produto.sync();
 
 export default Produto;

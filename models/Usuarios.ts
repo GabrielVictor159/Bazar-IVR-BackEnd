@@ -21,6 +21,15 @@ import db from "../Infra/DB"
    DataDeNascimento:{
     type: Sequelize.DataTypes.DATE,
     allowNull:false
+   },
+   Email:{
+    type: Sequelize.STRING,
+    allowNull:false,
+    unique:true
+   },
+   Telefone:{
+    type: Sequelize.INTEGER,
+    allowNull:false
    }
 },{timestamps: false})
 Usuarios.sync();
