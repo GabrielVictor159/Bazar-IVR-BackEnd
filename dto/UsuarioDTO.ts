@@ -1,33 +1,34 @@
 var md5 = require('md5');
  class UsuarioDTO {
-    private CPF!: String;
-    private Nome!: String;
+    private FirstName!: String;
+    private LastName!: String;
     private Senha!: String;
     private Endereco!: String;
     private DataDeNascimento!: Date;
     private Email!: String;
     private Telefone!:number;
 
-    constructor(CPF: String, Nome: String, Senha: String, Endereco: String, DataDeNascimento: Date, Email:String, Telefone:number) {
-        this.CPF = CPF;
-        this.Nome = Nome;
+    constructor( FirstName: String, LastName: String, Senha: String, Endereco: String, DataDeNascimento: Date, Email:String, Telefone:number) {
+        this.LastName = LastName;
+        this.FirstName = FirstName;
         this.Senha = md5(Senha);
         this.Endereco = Endereco;
         this.DataDeNascimento = DataDeNascimento;
         this.Email = Email;
         this.Telefone = Telefone;
     }
-    public getCPF(): String {
-        return this.CPF
+    
+    public getFirstName(): String {
+        return this.FirstName
     }
-    public setCPF(CPF: String): void {
-        this.CPF = CPF;
+    public setFirstName(FirstName: String): void {
+        this.FirstName = FirstName
     }
-    public getNome(): String {
-        return this.Nome
+    public getLastName(): String {
+        return this.LastName
     }
-    public setNome(Nome: String): void {
-        this.Nome = Nome
+    public setLastName(LastName: String): void {
+        this.LastName = LastName
     }
     public getSenha(): String {
         return this.Senha

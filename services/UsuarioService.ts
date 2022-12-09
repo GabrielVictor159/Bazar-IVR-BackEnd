@@ -1,14 +1,16 @@
 import UsuarioDTO from "../dto/UsuarioDTO";
 import Usuarios from "../models/Usuarios";
+import { keyApiCPF } from "../apikey";
 var md5 = require('md5');
 export class UsuarioService{
     constructor(){}
 
-    Cadastrar = async(CPF:String, Nome:String, Senha:String, endereco:String, DataDeNascimento:Date, Email:String, Telefone:number)=>{
-        console.log("acessou o método")
-        let res:any
+    Cadastrar = async(CPF:string, Senha:String, endereco:String,  Email:String, Telefone:number)=>{
+        let dados:any;
+
+               console.log(dados)
             try{
-                let dto = new UsuarioDTO(CPF, Nome, Senha, endereco, DataDeNascimento, Email, Telefone)
+                let dto = new UsuarioDTO(dados.cpf, dados.nome, Senha, endereco, dados.nascimento, Email, Telefone)
                     
                    await  Usuarios.create({CPF:dto.getCPF(),Nome:dto.getNome(), Senha:dto.getSenha(), Endereco:dto.getEndereco(), DataDeNascimento:dto.getDataDeNascimento(), Email:dto.getEmail(), Telefone: dto.getTelefone()})
                     return "usuario criado"
@@ -17,6 +19,9 @@ export class UsuarioService{
             catch(exception:any){
                 return `Error: ${exception.message}`
             }
+        
+    
+        
         }
   
        

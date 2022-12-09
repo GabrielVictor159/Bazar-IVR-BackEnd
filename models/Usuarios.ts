@@ -1,12 +1,17 @@
 const Sequelize = require('sequelize');
 import db from "../Infra/DB"
  const Usuarios = db.define('usuarios',{
-   CPF:{
-    type: Sequelize.STRING,
+  idUsuario:{
+    type: Sequelize.INTEGER,
+    autoIncrement: true,
     allowNull: false,
     primaryKey:true
+  },
+   FirstName:{
+    type: Sequelize.STRING,
+    allowNull: false,
    },
-   Nome:{
+   LastName:{
     type: Sequelize.STRING,
     allowNull: false,
    },
