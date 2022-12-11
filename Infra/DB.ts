@@ -1,8 +1,10 @@
+import Keys from "../Keys";
+
 const Sequelize = require('sequelize');
- const db = new Sequelize('loja', 'root', '159487',{
-    dialect:'mysql',
-    host:'localhost',
-    port:3306
+ const db = new Sequelize(Keys.databaseName, Keys.databaseUsername, Keys.databasePasswrod,{
+    dialect:Keys.databaseType,
+    host:Keys.databaseHost,
+    port:Keys.databaseHostPort
 })
 db.authenticate().then(
     function(){

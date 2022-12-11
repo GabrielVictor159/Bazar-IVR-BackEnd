@@ -2,6 +2,7 @@ import SolicitacoesUsuarios from "../models/SolicitacoesUsuarios";
 import { UsuarioService } from "./UsuarioService";
 import Usuarios from "../models/Usuarios";
 import VerificarAdmin from "./VerificarAdmin";
+import Keys from "../Keys";
 const emailLayout = require('../config/EmailLayout.js');
 var nodemailer = require('nodemailer');
 var transporter = nodemailer.createTransport({
