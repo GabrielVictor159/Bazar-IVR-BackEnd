@@ -1,19 +1,28 @@
 import UsuarioDTO from "../dto/UsuarioDTO";
 import Usuarios from "../models/Usuarios";
-import { keyApiCPF } from "../apikey";
+import { SolicitacoesUsuariosService } from "./SolicitacoesUsuariosService";
 var md5 = require('md5');
+import VerificarAdmin from "./VerificarAdmin";
+const solicitacoesUsuarios = new SolicitacoesUsuariosService();
 export class UsuarioService{
     constructor(){}
 
-    Cadastrar = async(CPF:string, Senha:String, endereco:String,  Email:String, Telefone:number)=>{
-        let dados:any;
-
-               console.log(dados)
+    Cadastrar = async(idSolicitacao:number)=>{
+        const buscaSolicitacao = await solicitacoesUsuarios.findByid(idSolicitacao);
+            
+               console.log(buscaSolicitacao)
             try{
-                let dto = new UsuarioDTO(dados.cpf, dados.nome, Senha, endereco, dados.nascimento, Email, Telefone)
+                let dto = new UsuarioDTO(buscaSolicitacao.dataValues.FirstName, buscaSolicitacao.dataValues.LastName, buscaSolicitacao.dataValues.Senha, buscaSolicitacao.dataValues.Endereco, buscaSolicitacao.dataValues.DataDeNascimento, buscaSolicitacao.dataValues.Email, buscaSolicitacao.dataValues.Telefone)
                     
-                   await  Usuarios.create({CPF:dto.getCPF(),Nome:dto.getNome(), Senha:dto.getSenha(), Endereco:dto.getEndereco(), DataDeNascimento:dto.getDataDeNascimento(), Email:dto.getEmail(), Telefone: dto.getTelefone()})
-                    return "usuario criado"
+                   await  Usuarios.create({FirstName:dto.getFirstName(),LastName:dto.getLastName(), Senha:dto.getSenha(), Endereco:dto.getEndereco(), DataDeNascimento:dto.getDataDeNascimento(), Email:dto.getEmail(), Telefone:dto.getTelefone()})
+                   
+                   try{
+                    await solicitacoesUsuarios.deletarSolicitacao(buscaSolicitacao.dataValues.idSolicitacao)
+                    return "Usuario Criado"
+                   }
+                   catch(exception:any){
+                    return `Error: ${exception.message}`
+                }
                 
             }
             catch(exception:any){
@@ -94,5 +103,6 @@ export class UsuarioService{
             return "Não foi possivel alterar a data de nascimento"
         }
     }
-
+  
+    
 }
