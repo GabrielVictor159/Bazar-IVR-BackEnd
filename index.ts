@@ -11,7 +11,10 @@ import ProdutoController from './Controller/ProdutoController';
 import SolicitacoesEmailController from './Controller/SolicitacoesEmailController';
 import ImageController from './Controller/ImageController';
 app.use(express.json());
-
+const cors = require('cors');
+app.use(cors({
+    origin: '*'
+}));
 app.get('/', async (req,res) =>{
  res.send("OK");
 });

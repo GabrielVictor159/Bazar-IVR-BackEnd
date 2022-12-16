@@ -1,17 +1,33 @@
 import ProdutoDTO from "../dto/ProdutoDTO";
+import Keys from "../Keys";
 import Admin from "../models/Admin";
 import Produto from "../models/Produto";
+import { ImageService } from "./ImageService";
 const { Op } = require("sequelize");
 var md5 = require('md5');
 export class ProdutoService{
     constructor(){}
+    adicionarLinkImage = async(req:any)=>{
+        let vetor = req
+        for(let i=0; i<vetor.length; i++){
+            vetor[i] = {
+                idProduto: req[i].idProduto,
+                Nome: req[i].Nome,
+                Descricao: req[i].Descricao,
+                Quantidade: req[i].Quantidade,
+                NomeImage: req[i].NomeImage,
+                LinkImage: Keys.link + "images/" +vetor[i].NomeImage + ".png"
+            }
+        }
+        return vetor
+    }
     findAll = async()=>{
         const busca = await Produto.findAll();
         if(busca===null){
             return "Sem produtos"
         }
         else{
-            return busca
+            return this.adicionarLinkImage(busca)
         }
     }
     findById = async(id:number)=>{
@@ -20,7 +36,7 @@ export class ProdutoService{
             return "Não existe esse produto"
         }
         else{
-            return busca
+            return this.adicionarLinkImage(busca)
         }
     }
     findByName = async(Nome:string)=>{
@@ -33,7 +49,7 @@ export class ProdutoService{
             return "Não existe esse produto"
         }
         else{
-            return busca
+            return this.adicionarLinkImage(busca)
         }
     }
     findAllAtMaxValue = async(MaxValor:number)=>{
@@ -46,7 +62,7 @@ export class ProdutoService{
             return "Não existe nenhum produto"
         }
         else{
-            return busca
+            return this.adicionarLinkImage(busca)
         }
     }
     findAllAtMinValue = async(MinValor:number)=>{
@@ -59,7 +75,7 @@ export class ProdutoService{
             return "Não existe nenhum produto"
         }
         else{
-            return busca
+            return this.adicionarLinkImage(busca)
         }
     }
     findAllIntervalValue = async(MinValor:number, MaxValor:number)=>{
@@ -74,24 +90,24 @@ export class ProdutoService{
             return "Não existe nenhum produto"
         }
         else{
-            return busca
+            return this.adicionarLinkImage(busca)
         }
     }
-    CadastrarProduto = async(NomeAdmin:String, SenhaAdmin:String, NomeProduto:String, Valor?: number, Descricao?: String, Quantidade?: number, Foto?: Blob)=>{
+    CadastrarProduto = async(NomeAdmin:String, SenhaAdmin:String, NomeProduto:String, Valor?: number, Descricao?: String, Quantidade?: number,  NomeImage?: String)=>{
         const verificarAdmin = this.VerificarAdmin(NomeAdmin, SenhaAdmin);
         const quantidade = Quantidade === undefined?1:Quantidade;
         const valor = Valor === undefined?0:Valor;
         if( await verificarAdmin==true){
             try{
-
-            let dto = new ProdutoDTO(NomeProduto, valor, Descricao, Quantidade, Foto);
+            
+            let dto = new ProdutoDTO(NomeProduto, valor, Descricao, Quantidade, NomeImage);
             const buscaProduto = await Produto.findOne({
             where:{
                 Nome:NomeProduto
             }
             })
             if(buscaProduto===null){
-                Produto.create({Nome:dto.getNome(), Valor:dto.getValor(), Descricao:dto.getDescricao(), Quantidade:dto.getDescricao()})
+                Produto.create({Nome:dto.getNome(),  Descricao:dto.getDescricao(), Quantidade:quantidade,NomeImage:dto.getNomeImage(), Valor:dto.getValor() })
             }
             else{
                 Produto.update({Quantidade:buscaProduto.Quantidade + quantidade},{
@@ -107,7 +123,7 @@ export class ProdutoService{
             }
         }
     }
-    AlterarProduto = async(NomeAdmin:String, SenhaAdmin:String, NomeProduto:String, Valor?:number, Descricao?:String, Quantidade?: number, Foto?: Blob)=>{
+    AlterarProduto = async(NomeAdmin:String, SenhaAdmin:String, NomeProduto:String, Valor?:number, Descricao?:String, Quantidade?: number)=>{
         const verificarAdmin = this.VerificarAdmin(NomeAdmin, SenhaAdmin);
         if( await verificarAdmin==true){
             const buscaProduto = await Produto.findOne({
@@ -125,7 +141,7 @@ export class ProdutoService{
                                 Valor:Valor===undefined?buscaProduto.Valor:Valor,
                                 Descricao:Descricao===undefined?buscaProduto.Descricao:Descricao,
                                 Quantidade:Quantidade===undefined?buscaProduto.Quantidade:Quantidade,
-                                Foto:Foto===undefined?buscaProduto.Foto:Foto
+                         
                             },
                             {
                                 where:{

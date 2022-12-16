@@ -2,14 +2,14 @@ class ProdutoDTO {
     private Nome!: String;
     private Descricao?: String;
     private Quantidade?: number;
-    private Foto?: Blob;
+    private NomeImage?: String;
     private Valor!: number;
 
-    constructor(Nome: String, Valor: number, Descricao?: String, Quantidade?: number, Foto?: Blob) {
+    constructor(Nome: String, Valor: number, Descricao?: String, Quantidade?: number,  nomeImage?: String) {
         this.Nome = Nome;
         this.Descricao = Descricao;
         this.Quantidade = Quantidade;
-        this.Foto = Foto;
+        this.NomeImage =  nomeImage;
         this.Valor = Valor;
     }
     public getNome(): String {
@@ -30,11 +30,11 @@ class ProdutoDTO {
     public setQuantidade(Quantidade: number): void {
         this.Quantidade = Quantidade
     }
-    public getFoto() {
-        return this.Foto
+    public getNomeImage() {
+        return this. NomeImage
     }
-    public setFoto(Foto: Blob): void {
-        this.Foto = Foto
+    public setNomeImage( NomeImage: String): void {
+        this. NomeImage =  NomeImage
     }
     public getValor(): number {
         return this.Valor

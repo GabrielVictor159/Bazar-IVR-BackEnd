@@ -20,8 +20,8 @@ const Produto = db.define('produto',{
         type: Sequelize.INTEGER,
         allowNull:true
     },
-    Foto:{
-        type: Sequelize.BLOB,
+    NomeImage:{
+        type: Sequelize.STRING,
         allowNull:true
     },
     Valor:{

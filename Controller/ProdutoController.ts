@@ -1,6 +1,7 @@
 import express from 'express';
 const ProdutoController = express.Router();
 import { ProdutoService } from '../services/ProdutoService';
+import VerificarAdmin from '../services/VerificarAdmin';
 const produtoService = new ProdutoService();
 
 ProdutoController.get('/Produtos/FindAll', async(req,res)=>{
@@ -34,12 +35,17 @@ ProdutoController.get('/Produtos/findAllIntervalValue', async(req,res)=>{
 })
 
 ProdutoController.post('/Produtos', async(req, res)=>{
-    const CadastrarProduto = await produtoService.CadastrarProduto(req.body.NomeAdmin, req.body.SenhaAdmin, req.body.NomeProduto, req.body.Valor, req.body.Descricao, req.body.Quantidade, req.body.Foto);
+    function removeExtension(filename:string) {
+        return filename.replace(/\.[^\/.]+$/, '');
+      }
+
+    const CadastrarProduto = await produtoService.CadastrarProduto(req.body.NomeAdmin, req.body.SenhaAdmin, req.body.NomeProduto, req.body.Valor, req.body.Descricao, req.body.Quantidade, removeExtension( req.body.NomeImage));
     res.send(CadastrarProduto)
+    res.end();
 })
 
 ProdutoController.put('/Produtos', async(req, res)=>{
-    const AlterarProduto = await produtoService.AlterarProduto(req.body.NomeAdmin, req.body.SenhaAdmin, req.body.NomeProduto, req.body.Valor, req.body.Descricao, req.body.Quantidade, req.body.Foto)
+    const AlterarProduto = await produtoService.AlterarProduto(req.body.NomeAdmin, req.body.SenhaAdmin, req.body.NomeProduto, req.body.Valor, req.body.Descricao, req.body.Quantidade)
     res.send(AlterarProduto)
 })
 
