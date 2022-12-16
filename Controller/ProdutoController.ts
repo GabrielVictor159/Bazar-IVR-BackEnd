@@ -18,6 +18,17 @@ ProdutoController.get('/Produtos/FindByName', async(req, res)=>{
     const findByName = await produtoService.findByName(req.body.Nome);
     res.send(findByName)
 })
+ProdutoController.get('/Produtos/FindAllLazyLoading/:index/:size', async(req, res)=>{
+    try{
+    const findByName = await produtoService.findAllLazyLoading(parseInt(req.params.index), parseInt(req.params.size));
+    res.send(findByName)
+    res.end()
+    }
+    catch(exception:any){
+        console.log(exception.message)
+        res.end()
+    }
+})
 
 ProdutoController.get('/Produtos/findAllAtMaxValue', async(req, res)=>{
     const findAllAtMaxValue = await produtoService.findAllAtMaxValue(req.body.MaxValor);
