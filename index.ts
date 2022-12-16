@@ -9,6 +9,7 @@ import AdminController from "./Controller/AdminController"
 import UsuariosController from "./Controller/UsuariosController";
 import ProdutoController from './Controller/ProdutoController';
 import SolicitacoesEmailController from './Controller/SolicitacoesEmailController';
+import ImageController from './Controller/ImageController';
 app.use(express.json());
 
 app.get('/', async (req,res) =>{
@@ -19,6 +20,9 @@ app.use('/', AdminController);
 app.use("/",UsuariosController);
 app.use('/',ProdutoController);
 app.use('/',SolicitacoesEmailController)
+ app.use('/',ImageController)
+app.use(express.static('public')); 
+app.use('/images', express.static('images'));
 app.post('/cadastrarCompra', async (req, res)=>{
     console.log(req.body);
     await compras.create(req.body)
