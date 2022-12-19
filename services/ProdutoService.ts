@@ -9,6 +9,19 @@ export class ProdutoService {
     constructor() { }
     adicionarLinkImage = async (req: any) => {
         let vetor = req
+        if(vetor.length===undefined){
+            vetor = {
+                idProduto: req.idProduto,
+                Nome: req.Nome,
+                Descricao: req.Descricao,
+                Quantidade: req.Quantidade,
+                NomeImage: req.NomeImage,
+                Valor: req.Valor,
+                LinkImage: Keys.link + "images/" + vetor.NomeImage + ".png"
+            }
+            return vetor
+        }
+        else{
         for (let i = 0; i < vetor.length; i++) {
             vetor[i] = {
                 idProduto: req[i].idProduto,
@@ -16,10 +29,12 @@ export class ProdutoService {
                 Descricao: req[i].Descricao,
                 Quantidade: req[i].Quantidade,
                 NomeImage: req[i].NomeImage,
+                Valor: req[i].Valor,
                 LinkImage: Keys.link + "images/" + vetor[i].NomeImage + ".png"
             }
         }
         return vetor
+    }
     }
     findAll = async () => {
         const busca = await Produto.findAll();
@@ -39,7 +54,7 @@ export class ProdutoService {
             }
         )
         
-        return busca
+        return  this.adicionarLinkImage(busca)
     }
     findById = async (id: number) => {
         const busca = await Produto.findByPk(id)

@@ -9,13 +9,15 @@ ProdutoController.get('/Produtos/FindAll', async(req,res)=>{
     res.send(findAll)
 })
 
-ProdutoController.get('/Produtos', async(req, res)=>{
-    const findById = await produtoService.findById(req.body.id);
+ProdutoController.get('/Produtos/:id', async(req, res)=>{
+    const findById = await produtoService.findById(parseInt(req.params.id));
+
     res.send(findById)
 })
 
 ProdutoController.get('/Produtos/FindByName', async(req, res)=>{
     const findByName = await produtoService.findByName(req.body.Nome);
+    
     res.send(findByName)
 })
 ProdutoController.get('/Produtos/FindAllLazyLoading/:index/:size', async(req, res)=>{
