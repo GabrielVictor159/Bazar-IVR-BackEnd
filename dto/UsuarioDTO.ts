@@ -7,8 +7,9 @@ var md5 = require('md5');
     private DataDeNascimento!: Date;
     private Email!: String;
     private Telefone!:number;
+    private idCompras?:Array<number>;
 
-    constructor( FirstName: String, LastName: String, Senha: String, Endereco: String, DataDeNascimento: Date, Email:String, Telefone:number) {
+    constructor( FirstName: String, LastName: String, Senha: String, Endereco: String, DataDeNascimento: Date, Email:String, Telefone:number, idCompras?:Array<number>) {
         this.LastName = LastName;
         this.FirstName = FirstName;
         this.Senha = md5(Senha);
@@ -16,8 +17,14 @@ var md5 = require('md5');
         this.DataDeNascimento = DataDeNascimento;
         this.Email = Email;
         this.Telefone = Telefone;
+        this.idCompras = idCompras;
     }
-    
+    public getidCompras(): any{
+        return this.idCompras
+    }
+    public setidCompras(idCompras: Array<number>): void {
+        this.idCompras = idCompras
+    }
     public getFirstName(): String {
         return this.FirstName
     }

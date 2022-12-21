@@ -35,6 +35,12 @@ import db from "../Infra/DB"
    Telefone:{
     type: Sequelize.INTEGER,
     allowNull:false
+   },
+   idCompras:{
+    type: Sequelize.INTEGER,
+    allowNull:true,
+    references: 'compras', 
+    referencesKey: 'idCompra' 
    }
 },{timestamps: false})
 Usuarios.sync();

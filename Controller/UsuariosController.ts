@@ -4,8 +4,8 @@ import { UsuarioService } from '../services/UsuarioService';
 const usuarioService = new UsuarioService();
 
 
-UsuarioController.get('/Usuarios', async(req,res)=>{
-    const Login = await usuarioService.Logar(req.body.Email, req.body.Senha);
+UsuarioController.get('/Usuarios/:Email/:Senha', async(req,res)=>{
+    const Login = await usuarioService.Logar(req.params.Email, req.params.Senha);
     res.send(Login)
 })
 
