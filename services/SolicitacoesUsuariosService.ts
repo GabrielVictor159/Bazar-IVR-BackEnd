@@ -18,15 +18,13 @@ export class SolicitacoesUsuariosService {
   constructor() { }
 
   criarSolicitacao = async (FirstName: String, LastName: String, Senha: String, Endereco: String, DataDeNascimento: Date, Email: String, Telefone: number) => {
-    if (await this.verificarEmail(Email) === false) {
-      return false
-    }
+  
     const idSolicitacao = Math.floor(Math.random() * 9999);
     console.log(idSolicitacao)
     var newDate = new Date();
     let busca = this.findByEmail(Keys.Admin, Keys.SenhaAdmin, Email);
     if (await busca !== 1) {
-      return false
+      return "Ja existe um usuario com esse email"
     }
     else {
       let busca2 = await SolicitacoesUsuarios.findOne({
@@ -37,63 +35,42 @@ export class SolicitacoesUsuariosService {
       if (busca2 === null) {
         try {
           const solicitacao = await SolicitacoesUsuarios.create({idSolicitacao:idSolicitacao, FirstName: FirstName, LastName: LastName, Senha: Senha, Endereco: Endereco, DataDeNascimento: DataDeNascimento, Email: Email, Telefone: Telefone, DataDeCriacao: newDate });
-          // try{
-          //   await transporter.sendMail( {
-          //       from: 'gabrielvictor159487@gmail.com',
-          //       to: `${Email}`,
-          //       subject: 'Sending Email using Node.js',
-          //       text: 'That was easy!',
-          //       html:emailLayout(solicitacao.idSolicitacao)
-          //     });
-          //   }
-          //   catch(exception:any){
-          //       console.log(exception.message)
-          //       return false;
-          //   }
+          try{
+            const url = Keys.link + `UsuariosConfirmar/${idSolicitacao}`
+            const titulo = "Confirme a criação da sua conta"
+            const texto = "Bom dia, foi feito uma solicitação de criação de usuario no nosso site com o seu email, por favor se foi você confirme a inscrição clicando no botão abaixo, caso não tenha sido você por favor ignore esse email."
+            await transporter.sendMail( {
+                from: 'gabrielvictor159487@gmail.com',
+                to: `${Email}`,
+                subject: 'Confirmar inscrição',
+                text: '',
+                html:emailLayout(url,titulo, texto)
+              });
+              return "Sucesso"
+            }
+            catch(exception:any){
+              this.deletarSolicitacao(idSolicitacao)
+                if(exception.message === "No recipients defined"){
+                  return "Email invalido"
+                }
+                else{
+                  return "Houve um erro"
+                }
+            }
+        
         }
         catch (exception: any) {
           return exception.message
         }
       }
       else {
-        return false
+        return "Ja existe uma solicitação de criação de usuario com esse email"
 
 
       }
     }
   }
-  verificarEmail = async (Email: String) => {
-
-    let busca: any = false;
-
-    const axios = require("axios");
-
-    const encodedParams = new URLSearchParams();
-    encodedParams.append("email", `${Email}`);
-
-    const options = {
-      method: 'POST',
-      url: 'https://community-neutrino-email-validate.p.rapidapi.com/email-validate',
-      headers: {
-        'content-type': 'application/x-www-form-urlencoded',
-        'X-RapidAPI-Key': Keys.ApiEmailKey,
-        'X-RapidAPI-Host': 'community-neutrino-email-validate.p.rapidapi.com'
-      },
-      data: encodedParams
-    };
-
-   await axios.request(options).then(function (response:any) {
-      busca=true;
-    }).catch(function (error:any) {
-      console.error(error);
-    });
-    if (busca) {
-      return true
-    }
-    else {
-      return false
-    }
-  }
+  
   findByid = async (id: number) => {
     return await SolicitacoesUsuarios.findByPk(id)
 

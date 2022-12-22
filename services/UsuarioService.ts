@@ -103,6 +103,5 @@ export class UsuarioService{
             return "Não foi possivel alterar a data de nascimento"
         }
     }
-  
     
 }
