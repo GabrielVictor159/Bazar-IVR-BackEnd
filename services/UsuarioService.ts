@@ -61,6 +61,22 @@ export class UsuarioService{
         return "Algo deu errado"
     }
     }
+    EsqueceuSenhaRedefinirSenha = async(Email:String, Senha:String, NovaSenha:String)=>{
+        try{
+            console.log(NovaSenha)
+            await Usuarios.update({Senha:md5(NovaSenha)},{
+                where:{
+                    Email:Email,
+                    Senha:Senha
+                }
+            })
+            return "Senha alterada"
+        }
+        catch(exception:any){
+            console.log(exception.message)
+            return "Não foi possivel alterar a senha"
+        }
+    }
     AlterarSenha = async(Email:String, Senha:String, NovaSenha:String)=>{
         try{
             await Usuarios.update({Senha:md5(NovaSenha)},{
@@ -71,7 +87,8 @@ export class UsuarioService{
             })
             return "Senha alterada"
         }
-        catch{
+        catch(exception:any){
+            console.log(exception.message)
             return "Não foi possivel alterar a senha"
         }
     }

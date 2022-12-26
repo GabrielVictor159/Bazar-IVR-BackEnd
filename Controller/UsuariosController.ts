@@ -13,7 +13,10 @@ UsuarioController.post('/UsuariosConfirmar/:idSolicitacao', async(req,res)=>{
     const Cadastro = await usuarioService.Cadastrar(parseInt(req.params.idSolicitacao));
     res.send(Cadastro)
 })
-
+UsuarioController.put('/UsuariosEsqueceuSenhaAlterarSenha', async(req, res)=>{
+    const EsqueceuSenhaAlterarSenha = await usuarioService.EsqueceuSenhaRedefinirSenha(req.body.Email, req.body.Senha, req.body.NovaSenha)
+    res.send(EsqueceuSenhaAlterarSenha)
+})
 UsuarioController.put('/UsuariosAlterarNome', async(req,res)=>{
     const AlterarNome = await usuarioService.AlterarNome(req.body.Email,req.body.Senha, req.body.NovoNome)
     res.send(AlterarNome)
