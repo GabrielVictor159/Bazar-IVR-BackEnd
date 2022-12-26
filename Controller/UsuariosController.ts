@@ -9,7 +9,7 @@ UsuarioController.get('/Usuarios/:Email/:Senha', async(req,res)=>{
     res.send(Login)
 })
 
-UsuarioController.get('/UsuariosConfirmar/:idSolicitacao', async(req,res)=>{
+UsuarioController.post('/UsuariosConfirmar/:idSolicitacao', async(req,res)=>{
     const Cadastro = await usuarioService.Cadastrar(parseInt(req.params.idSolicitacao));
     res.send(Cadastro)
 })

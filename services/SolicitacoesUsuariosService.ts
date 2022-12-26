@@ -3,6 +3,7 @@ import { UsuarioService } from "./UsuarioService";
 import Usuarios from "../models/Usuarios";
 import VerificarAdmin from "./VerificarAdmin";
 import Keys from "../Keys";
+import { response } from "express";
 const emailLayout = require('../config/EmailLayout.js');
 var nodemailer = require('nodemailer');
 var transporter = nodemailer.createTransport({
@@ -74,6 +75,32 @@ export class SolicitacoesUsuariosService {
   findByid = async (id: number) => {
     return await SolicitacoesUsuarios.findByPk(id)
 
+  }
+  esqueceuSenha = async(email: String) =>{
+    let busca = await this.findByEmail(Keys.Admin, Keys.SenhaAdmin, email);
+    if (await busca === 1) {
+      return "Não existe um usuario com esse email"
+    }
+    else{
+      
+      try{
+        const url = Keys.linkFront + `RedefinirSenha/${busca.Email}/${busca.Senha}`
+        const titulo = "Alteração de Senha"
+        const texto = "Bom dia, foi feito uma tentativa de login na sua conta através do método esqueceu senha, se foi você por favor clique no botão para alterar a sua senha."
+        await transporter.sendMail( {
+            from: 'gabrielvictor159487@gmail.com',
+            to: `${busca.Email}`,
+            subject: 'Esqueceu Senha',
+            text: '',
+            html:emailLayout(url,titulo, texto)
+          });
+          return "Sucesso"
+      }
+      catch(exception:any){
+        return "Houve um erro"
+      }
+  
+    }
   }
   deletarSolicitacao = async (id: number) => {
     try {

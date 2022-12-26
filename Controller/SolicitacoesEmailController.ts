@@ -12,5 +12,15 @@ SolicitacoesEmailController.post("/CadastrarSolicitacao", async (req, res)=>{
         res.send("Houve um erro")
     }
 })
+SolicitacoesEmailController.post("/EsqueceuSenha/:Email", async (req, res)=>{
+    try{
+        const resposta = solicitacoesUsuariosService.esqueceuSenha(req.params.Email)
+        res.send( await resposta)
+    }
+    catch(exception:any){
+        console.log(exception.message)
+        res.send("Houve um erro")
+    }
+})
 
 export default SolicitacoesEmailController;
