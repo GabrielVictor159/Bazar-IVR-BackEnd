@@ -13,6 +13,18 @@ UsuarioController.post('/UsuariosConfirmar/:idSolicitacao', async(req,res)=>{
     const Cadastro = await usuarioService.Cadastrar(parseInt(req.params.idSolicitacao));
     res.send(Cadastro)
 })
+UsuarioController.put('/Usuarios', async(req, res)=>{
+    try{
+    const resposta = await usuarioService.PutUser(req.body)
+    res.send(resposta)
+    }
+    catch(exception:any){
+        console.log(exception.message);
+        res.send('Houve um erro')
+
+    }
+   
+})
 UsuarioController.put('/UsuariosEsqueceuSenhaAlterarSenha', async(req, res)=>{
     const EsqueceuSenhaAlterarSenha = await usuarioService.EsqueceuSenhaRedefinirSenha(req.body.Email, req.body.Senha, req.body.NovaSenha)
     res.send(EsqueceuSenhaAlterarSenha)
