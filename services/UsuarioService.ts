@@ -49,11 +49,44 @@ export class UsuarioService {
 
     }
     PutUser = async (User: any) => {
-        const { FirstName, LastName, Endereco, DataDeNascimento, Telefone } = User;
+        const { FirstName, LastName, Endereco,  Telefone } = User;
+        if(FirstName.toString().length<7){
+            return "Primeiro nome muito pequeno, escreva um nome com pelo menos 7 digitos"
+        }
+        if(LastName.toString().length<7){
+            return "Ultimo nome muito pequeno, escreva um nome com pelo menos 7 digitos"
+        }
+        if(Endereco.toString().length<7){
+            return "Por favor insira um Endereco valido"
+        }
+        let dataDeNascimento = User.DataDeNascimento;
+        try{
+            dataDeNascimento = new Date(User.DataDeNascimento)
+        }
+        catch{
+            return "Data de nascimento invalida"
+        }
+        if(Telefone.toString().length !==11){
+            return "Telefone invalido"
+        }
+        let telefone;
+        try{
+            telefone = parseInt(Telefone)
+        }
+        catch{
+            return "formato de telefone invalido"
+        }
+        if(User.Senha.toString().length<6){
+            return "Senha muito pequena"
+        }
+        let h = parseInt(User.Senha)
+        if(h.toString().length=== User.Senha.toString().length){
+            return "A senha deve conter letras e numeros"
+        }
         try {
             await Usuarios.update(
                 {
-                    FirstName:FirstName, LastName:LastName, Senha:md5(User.Senha), Endereco:Endereco, DataDeNascimento:DataDeNascimento, Telefone:Telefone
+                    FirstName:FirstName, LastName:LastName, Senha:md5(User.Senha), Endereco:Endereco, DataDeNascimento:dataDeNascimento, Telefone:telefone
                 }, {
                 where: {
                     idUsuario: User.idUsuario
@@ -79,7 +112,14 @@ export class UsuarioService {
             return "Algo deu errado"
         }
     }
-    EsqueceuSenhaRedefinirSenha = async (Email: String, Senha: String, NovaSenha: String) => {
+    EsqueceuSenhaRedefinirSenha = async (Email: String, Senha: String, NovaSenha: string) => {
+        if(NovaSenha.length<6){
+            return "Senha muito pequena"
+        }
+        let h = parseInt(NovaSenha)
+        if(h.toString().length=== NovaSenha.toString().length){
+            return "A senha deve conter letras e numeros"
+        }
         try {
             console.log(NovaSenha)
             await Usuarios.update({ Senha: md5(NovaSenha) }, {
@@ -95,7 +135,14 @@ export class UsuarioService {
             return "Não foi possivel alterar a senha"
         }
     }
-    AlterarSenha = async (Email: String, Senha: String, NovaSenha: String) => {
+    AlterarSenha = async (Email: String, Senha: String, NovaSenha: string) => {
+        if(NovaSenha.length<6){
+            return "Senha muito pequena"
+        }
+        let h = parseInt(NovaSenha)
+        if(h.toString().length=== NovaSenha.toString().length){
+            return "A senha deve conter letras e numeros"
+        }
         try {
             await Usuarios.update({ Senha: md5(NovaSenha) }, {
                 where: {
