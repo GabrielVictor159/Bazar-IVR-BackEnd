@@ -1,6 +1,5 @@
 import express from 'express';
 import { json } from 'sequelize';
-import Admin from '../models/Admin';
 import { ImageService } from '../services/ImageService';
 import VerificarAdmin from '../services/VerificarAdmin';
 var md5 = require('md5');
@@ -8,13 +7,8 @@ const imageService = new ImageService();
 const ImageController = express.Router();
 
 ImageController.post('/images/:NomeAdmin/:SenhaAdmin', async(req:any, res:any) => {
-  const buscaAdmin = Admin.findOne({
-        where:{
-            Nome:req.params.NomeAdmin,
-            Senha:md5(req.params.SenhaAdmin)
-        }
-    })
-    if(buscaAdmin==null){
+  const buscaAdmin = VerificarAdmin(req.params.NomeAdmin, req.params.SenhaAdmin)
+    if(buscaAdmin===false){
       res.send("Senha de Administrador errada")
       res.end();
     }
