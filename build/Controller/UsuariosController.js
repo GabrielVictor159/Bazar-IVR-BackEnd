@@ -13,6 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
+const Keys_1 = __importDefault(require("../Keys"));
 const UsuarioController = express_1.default.Router();
 const UsuarioService_1 = require("../services/UsuarioService");
 const usuarioService = new UsuarioService_1.UsuarioService();
@@ -20,9 +21,14 @@ UsuarioController.get('/Usuarios/:Email/:Senha', (req, res) => __awaiter(void 0,
     const Login = yield usuarioService.Logar(req.params.Email, req.params.Senha);
     res.send(Login);
 }));
-UsuarioController.post('/UsuariosConfirmar/:idSolicitacao', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+UsuarioController.get('/UsuariosConfirmar/:idSolicitacao', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const Cadastro = yield usuarioService.Cadastrar(parseInt(req.params.idSolicitacao));
-    res.send(Cadastro);
+    if (Cadastro === "Usuario Criado") {
+        res.redirect(Keys_1.default.linkFront + "/SucessoRegistrar");
+    }
+    else {
+        res.send("Houve algum erro");
+    }
 }));
 UsuarioController.put('/Usuarios', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {

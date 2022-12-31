@@ -1,4 +1,5 @@
 import express from 'express';
+import Keys from '../Keys';
 const UsuarioController = express.Router();
 import { UsuarioService } from '../services/UsuarioService';
 const usuarioService = new UsuarioService();
@@ -9,9 +10,14 @@ UsuarioController.get('/Usuarios/:Email/:Senha', async(req,res)=>{
     res.send(Login)
 })
 
-UsuarioController.post('/UsuariosConfirmar/:idSolicitacao', async(req,res)=>{
+UsuarioController.get('/UsuariosConfirmar/:idSolicitacao', async(req,res)=>{
     const Cadastro = await usuarioService.Cadastrar(parseInt(req.params.idSolicitacao));
-    res.send(Cadastro)
+    if(Cadastro ==="Usuario Criado"){
+        res.redirect(Keys.linkFront+"/SucessoRegistrar")
+    }
+    else{
+        res.send("Houve algum erro")
+    }
 })
 UsuarioController.put('/Usuarios', async(req, res)=>{
     try{
