@@ -14,8 +14,12 @@ ImageController.post('/images/:NomeAdmin/:SenhaAdmin', (req:any, res:any) => {
  
     }
     else{
+      try{
      imageService.saveImage(req, res)
-
+      }
+      catch(exception:any){
+        console.log(exception.message)
+      }
     
   
     }
