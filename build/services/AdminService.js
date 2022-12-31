@@ -42,7 +42,7 @@ class AdminService {
                     }
                 }
             }
-            fs_1.default.writeFileSync('./admin.ts', `export const admin: Admin[] = ${JSON.stringify(admin)};`);
+            fs_1.default.writeFileSync('../services/Admin.json', `export const admin: Admin[] = ${JSON.stringify(admin)};`);
         }
     }
 }
