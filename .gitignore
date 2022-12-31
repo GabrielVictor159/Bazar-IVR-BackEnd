@@ -5,7 +5,7 @@ dist/
 build/
 git-cryp-key.*
 npm-debug.*
-Keys.*
+Keys.ts
 *.jks
 *.p8
 *.p12
