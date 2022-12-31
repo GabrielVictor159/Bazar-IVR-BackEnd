@@ -17,8 +17,13 @@ const AdminController = express_1.default.Router();
 const AdminService_1 = require("../services/AdminService");
 const adminService = new AdminService_1.AdminService();
 AdminController.get('/Admin', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const Login = yield adminService.Login(req.body.Nome, req.body.Senha);
-    res.send(Login);
+    try {
+        const Login = yield adminService.Login(req.body.Nome, req.body.Senha);
+        res.send(Login);
+    }
+    catch (exception) {
+        console.log(exception.message);
+    }
 }));
 exports.default = AdminController;
 //# sourceMappingURL=AdminController.js.map
