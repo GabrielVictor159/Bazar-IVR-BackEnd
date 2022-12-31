@@ -1,5 +1,9 @@
-import { admin } from "./Admin";
+import fs from 'fs';
 
 export default function VerificarAdmin(nome: string, senha: string): boolean {
-  return admin.some((a) => a.NomeAdmin === nome && a.SenhaAdmin === senha);
+  const data = fs.readFileSync('admin.json', 'utf8');
+
+        // Converte o conteúdo do arquivo para um objeto JavaScript
+  let admin = JSON.parse(data);
+  return admin.some((a: { NomeAdmin: string; SenhaAdmin: string; }) => a.NomeAdmin === nome && a.SenhaAdmin === senha);
 }

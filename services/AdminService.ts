@@ -1,6 +1,5 @@
 
 import fs from 'fs';
-import { admin } from "./Admin";
 import VerificarAdmin from './VerificarAdmin';
 
 export class AdminService {
@@ -14,15 +13,21 @@ export class AdminService {
 
     
     alterarAdmin(nomeAdmin:string, senhaAdmin:string,nome: string, senha: string, acao: 'adicionar' | 'remover' | 'alterar', novoNome?:string, novaSenha?:string) {
+        const data = fs.readFileSync('admin.json', 'utf8');
+
+        // Converte o conteúdo do arquivo para um objeto JavaScript
+        let admin = JSON.parse(data);
+      
+      
         if(VerificarAdmin(nomeAdmin, senhaAdmin)){
         if (acao === 'adicionar') {
             admin.push({ NomeAdmin: nome, SenhaAdmin: senha });
         } else if(acao === 'remover'){
-            admin.splice(admin.findIndex(item => item.NomeAdmin === nome), 1);
+            admin.splice(admin.findIndex((item: { NomeAdmin: string; }) => item.NomeAdmin === nome), 1);
         }
         else if(acao ==='alterar'){
             if(novoNome!=undefined){
-                const index = admin.findIndex(item => item.NomeAdmin===nome);
+                const index = admin.findIndex((item: { NomeAdmin: string; }) => item.NomeAdmin===nome);
                 try{
                     admin[index].NomeAdmin=novoNome;
                     
@@ -32,7 +37,7 @@ export class AdminService {
                 }
             }
             if(novaSenha!=undefined){
-                const index = admin.findIndex(item => item.NomeAdmin===nome);
+                const index = admin.findIndex((item: { NomeAdmin: string; }) => item.NomeAdmin===nome);
                 try{
                     admin[index].SenhaAdmin=novaSenha;
                     
