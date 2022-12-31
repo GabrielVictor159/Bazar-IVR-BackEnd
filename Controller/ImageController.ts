@@ -6,7 +6,7 @@ const imageService = new ImageService();
 const ImageController = express.Router();
 
 ImageController.post('/images/:NomeAdmin/:SenhaAdmin', async(req, res, next) => {
-   if(req.params.NomeAdmin==='gabriel' && req.params.SenhaAdmin==='159487'){
+   if(await VerificarAdmin(req.params.NomeAdmin, req.params.SenhaAdmin)){
      const resposta =  imageService.saveImage(req , res)
 
      res.send("sucesso")
