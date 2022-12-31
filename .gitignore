@@ -2,9 +2,9 @@ node_modules/
 .expo/
 dist/
 build/
+Keys.*
 git-cryp-key.*
 npm-debug.*
-Keys.*
 *.jks
 *.p8
 *.p12
