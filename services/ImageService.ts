@@ -30,7 +30,7 @@ export class ImageService{
             }
         
         })
-        res.send(resposta)
+        
     }
     deleteImage =  (name:any)=>{
         const path = `/app/images/${name}.png`

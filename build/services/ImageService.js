@@ -41,7 +41,6 @@ class ImageService {
                     });
                 }
             });
-            res.send(resposta);
         });
         this.deleteImage = (name) => {
             const path = `/app/images/${name}.png`;

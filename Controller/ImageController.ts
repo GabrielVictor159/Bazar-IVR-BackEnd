@@ -7,21 +7,19 @@ const imageService = new ImageService();
 const ImageController = express.Router();
 
 ImageController.post('/images/:NomeAdmin/:SenhaAdmin', (req:any, res:any) => {
-  const buscaAdmin = VerificarAdmin(req.params.NomeAdmin, req.params.SenhaAdmin)
-  console.log(buscaAdmin)
-    if(buscaAdmin===false){
-      res.send("Senha de Administrador errada")
- 
+  if( VerificarAdmin(req.params.NomeAdmin, req.params.SenhaAdmin)){
+    try{
+    imageService.saveImage(req, res)
+    res.redirect("/")
     }
-    else{
-      try{
-     imageService.saveImage(req, res)
-      }
-      catch(exception:any){
-        console.log(exception.message)
-      }
-    
+    catch(err:any){
+      console.log(err.message)
+      res.sendStatus(500)
+    }
+  }
   
+    else{
+      res.sendStatus(500)
     }
   
 
