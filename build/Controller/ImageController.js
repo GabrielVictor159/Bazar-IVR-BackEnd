@@ -26,7 +26,7 @@ ImageController.post('/images/:NomeAdmin/:SenhaAdmin', (req, res) => __awaiter(v
         res.end();
     }
     else {
-        imageService.saveImage(req);
+        yield imageService.saveImage(req);
         res.send("sucesso");
         res.end();
     }
