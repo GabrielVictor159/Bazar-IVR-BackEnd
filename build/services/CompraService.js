@@ -59,7 +59,7 @@ class CompraService {
             });
             console.log(items);
             const preference = {
-                notification_url: `${Keys_1.default.ngrokLink}/NotificacaoCompra`,
+                notification_url: `${Keys_1.default.link}NotificacaoCompra`,
                 items: items,
                 payer: {
                     name: usuario.FirstName,

@@ -29,6 +29,7 @@ app.use(cors({
 app.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     res.send("OK");
 }));
+const port = process.env.PORT || 3030;
 app.use('/', AdminController_1.default);
 app.use("/", UsuariosController_1.default);
 app.use('/', ProdutoController_1.default);
@@ -52,7 +53,7 @@ app.post('/cadastrarCompra', (req, res) => __awaiter(void 0, void 0, void 0, fun
         });
     });
 }));
-app.listen(3030, () => {
+app.listen(port, () => {
     console.log('teste');
 });
 //# sourceMappingURL=index.js.map
