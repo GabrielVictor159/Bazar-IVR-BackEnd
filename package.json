@@ -6,7 +6,7 @@
   "scripts": {
     "build": "tsc -w && cp /services/admin.json build",
     "dev": "echo \"Error: no test specified\" && exit 1",
-    "compile": "tsc -w",
+    "compile": "tsc -w && cp /services/admin.json build",
     "start": "node ./build/index.js"
   },
   "keywords": [],
