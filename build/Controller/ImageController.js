@@ -15,17 +15,18 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const ImageService_1 = require("../services/ImageService");
 const VerificarAdmin_1 = __importDefault(require("../services/VerificarAdmin"));
+var md5 = require('md5');
 const imageService = new ImageService_1.ImageService();
 const ImageController = express_1.default.Router();
-ImageController.post('/images/:NomeAdmin/:SenhaAdmin', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log(req);
-    if (yield (0, VerificarAdmin_1.default)(req.params.NomeAdmin, req.params.SenhaAdmin)) {
-        const resposta = imageService.saveImage(req);
-        res.send("sucesso");
+ImageController.post('/images/:NomeAdmin/:SenhaAdmin', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const buscaAdmin = (0, VerificarAdmin_1.default)(req.params.NomeAdmin, req.params.SenhaAdmin);
+    if (buscaAdmin === false) {
+        res.send("Senha de Administrador errada");
         res.end();
     }
     else {
-        res.send("Senha de Administrador errada");
+        imageService.saveImage(req);
+        res.send("sucesso");
         res.end();
     }
 }));

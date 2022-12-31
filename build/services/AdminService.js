@@ -1,39 +1,47 @@
 "use strict";
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AdminService = void 0;
-const AdminDTO_js_1 = __importDefault(require("../dto/AdminDTO.js"));
-const Admin_js_1 = __importDefault(require("../models/Admin.js"));
+const fs_1 = __importDefault(require("fs"));
+const Admin_1 = require("./Admin");
+const VerificarAdmin_1 = __importDefault(require("./VerificarAdmin"));
 class AdminService {
     constructor() {
-        this.Login = (Nome, Senha) => __awaiter(this, void 0, void 0, function* () {
-            try {
-                let dto = new AdminDTO_js_1.default(Nome, Senha);
-                let nome = dto.getNome();
-                let senha = dto.getSenha();
-                const busca = yield Admin_js_1.default.findOne({ where: { Nome: nome, Senha: senha } });
-                if (busca === null) {
-                    return "Usuario ou senha errados";
+        this.Login = (Nome, Senha) => {
+            const resposta = (0, VerificarAdmin_1.default)(Nome, Senha);
+            return resposta;
+        };
+    }
+    alterarAdmin(nomeAdmin, senhaAdmin, nome, senha, acao, novoNome, novaSenha) {
+        if ((0, VerificarAdmin_1.default)(nomeAdmin, senhaAdmin)) {
+            if (acao === 'adicionar') {
+                Admin_1.admin.push({ NomeAdmin: nome, SenhaAdmin: senha });
+            }
+            else if (acao === 'remover') {
+                Admin_1.admin.splice(Admin_1.admin.findIndex(item => item.NomeAdmin === nome), 1);
+            }
+            else if (acao === 'alterar') {
+                if (novoNome != undefined) {
+                    const index = Admin_1.admin.findIndex(item => item.NomeAdmin === nome);
+                    try {
+                        Admin_1.admin[index].NomeAdmin = novoNome;
+                    }
+                    catch (_a) {
+                    }
                 }
-                else {
-                    return busca;
+                if (novaSenha != undefined) {
+                    const index = Admin_1.admin.findIndex(item => item.NomeAdmin === nome);
+                    try {
+                        Admin_1.admin[index].SenhaAdmin = novaSenha;
+                    }
+                    catch (_b) {
+                    }
                 }
             }
-            catch (_a) {
-                return "Por favor informe valores validos";
-            }
-        });
+            fs_1.default.writeFileSync('./admin.ts', `export const admin: Admin[] = ${JSON.stringify(Admin_1.admin)};`);
+        }
     }
 }
 exports.AdminService = AdminService;

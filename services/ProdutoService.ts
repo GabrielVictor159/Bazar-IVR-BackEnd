@@ -1,8 +1,8 @@
 import ProdutoDTO from "../dto/ProdutoDTO";
 import Keys from "../Keys";
-import Admin from "../models/Admin";
 import Produto from "../models/Produto";
 import { ImageService } from "./ImageService";
+import VerificarAdmin from "./VerificarAdmin";
 const { Op } = require("sequelize");
 var md5 = require('md5');
 export class ProdutoService {
@@ -119,8 +119,8 @@ export class ProdutoService {
             return this.adicionarLinkImage(busca)
         }
     }
-    CadastrarProduto = async (NomeAdmin: String, SenhaAdmin: String, NomeProduto: String, Valor?: number, Descricao?: String, Quantidade?: number, NomeImage?: String) => {
-        const verificarAdmin = this.VerificarAdmin(NomeAdmin, SenhaAdmin);
+    CadastrarProduto = async (NomeAdmin: string, SenhaAdmin: string, NomeProduto: String, Valor?: number, Descricao?: String, Quantidade?: number, NomeImage?: String) => {
+        const verificarAdmin = VerificarAdmin(NomeAdmin, SenhaAdmin);
         const quantidade = Quantidade === undefined ? 1 : Quantidade;
         const valor = Valor === undefined ? 0 : Valor;
         if (await verificarAdmin == true) {
@@ -149,8 +149,8 @@ export class ProdutoService {
             }
         }
     }
-    AlterarProduto = async (NomeAdmin: String, SenhaAdmin: String, NomeProduto: String, Valor?: number, Descricao?: String, Quantidade?: number) => {
-        const verificarAdmin = this.VerificarAdmin(NomeAdmin, SenhaAdmin);
+    AlterarProduto = async (NomeAdmin: string, SenhaAdmin: string, NomeProduto: String, Valor?: number, Descricao?: String, Quantidade?: number) => {
+        const verificarAdmin = VerificarAdmin(NomeAdmin, SenhaAdmin);
         if (await verificarAdmin == true) {
             const buscaProduto = await Produto.findOne({
                 where: {
@@ -185,8 +185,8 @@ export class ProdutoService {
             return "Você não tem permissão de administrador"
         }
     }
-    deletarProduto = async (NomeAdmin: String, SenhaAdmin: string, NomeProduto: String) => {
-        const verificarAdmin = this.VerificarAdmin(NomeAdmin, SenhaAdmin);
+    deletarProduto = async (NomeAdmin: string, SenhaAdmin: string, NomeProduto: String) => {
+        const verificarAdmin =VerificarAdmin(NomeAdmin, SenhaAdmin);
         if (await verificarAdmin == true) {
             const buscaProduto = await Produto.findOne({
                 where: {
@@ -213,18 +213,5 @@ export class ProdutoService {
             return "Você não tem permissão de administrador"
         }
     }
-    VerificarAdmin = async (NomeAdmin: String, SenhaAdmin: String) => {
-        const buscaAdmin = await Admin.findOne({
-            where: {
-                Nome: NomeAdmin,
-                Senha: md5(SenhaAdmin)
-            }
-        })
-        if (buscaAdmin == null) {
-            return false
-        }
-        else {
-            return true
-        }
-    }
+    
 }

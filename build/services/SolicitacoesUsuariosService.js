@@ -118,7 +118,7 @@ class SolicitacoesUsuariosService {
             }
         });
         this.findByEmail = (NomeAdmin, SenhaAdmin, Email) => __awaiter(this, void 0, void 0, function* () {
-            if (yield (0, VerificarAdmin_1.default)(NomeAdmin, SenhaAdmin)) {
+            if ((0, VerificarAdmin_1.default)(NomeAdmin, SenhaAdmin)) {
                 const busca = yield Usuarios_1.default.findOne({
                     where: {
                         Email: Email

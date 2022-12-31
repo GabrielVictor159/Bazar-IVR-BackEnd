@@ -15,8 +15,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ProdutoService = void 0;
 const ProdutoDTO_1 = __importDefault(require("../dto/ProdutoDTO"));
 const Keys_1 = __importDefault(require("../Keys"));
-const Admin_1 = __importDefault(require("../models/Admin"));
 const Produto_1 = __importDefault(require("../models/Produto"));
+const VerificarAdmin_1 = __importDefault(require("./VerificarAdmin"));
 const { Op } = require("sequelize");
 var md5 = require('md5');
 class ProdutoService {
@@ -130,7 +130,7 @@ class ProdutoService {
             }
         });
         this.CadastrarProduto = (NomeAdmin, SenhaAdmin, NomeProduto, Valor, Descricao, Quantidade, NomeImage) => __awaiter(this, void 0, void 0, function* () {
-            const verificarAdmin = this.VerificarAdmin(NomeAdmin, SenhaAdmin);
+            const verificarAdmin = (0, VerificarAdmin_1.default)(NomeAdmin, SenhaAdmin);
             const quantidade = Quantidade === undefined ? 1 : Quantidade;
             const valor = Valor === undefined ? 0 : Valor;
             if ((yield verificarAdmin) == true) {
@@ -158,7 +158,7 @@ class ProdutoService {
             }
         });
         this.AlterarProduto = (NomeAdmin, SenhaAdmin, NomeProduto, Valor, Descricao, Quantidade) => __awaiter(this, void 0, void 0, function* () {
-            const verificarAdmin = this.VerificarAdmin(NomeAdmin, SenhaAdmin);
+            const verificarAdmin = (0, VerificarAdmin_1.default)(NomeAdmin, SenhaAdmin);
             if ((yield verificarAdmin) == true) {
                 const buscaProduto = yield Produto_1.default.findOne({
                     where: {
@@ -190,7 +190,7 @@ class ProdutoService {
             }
         });
         this.deletarProduto = (NomeAdmin, SenhaAdmin, NomeProduto) => __awaiter(this, void 0, void 0, function* () {
-            const verificarAdmin = this.VerificarAdmin(NomeAdmin, SenhaAdmin);
+            const verificarAdmin = (0, VerificarAdmin_1.default)(NomeAdmin, SenhaAdmin);
             if ((yield verificarAdmin) == true) {
                 const buscaProduto = yield Produto_1.default.findOne({
                     where: {
@@ -215,20 +215,6 @@ class ProdutoService {
             }
             else {
                 return "Você não tem permissão de administrador";
-            }
-        });
-        this.VerificarAdmin = (NomeAdmin, SenhaAdmin) => __awaiter(this, void 0, void 0, function* () {
-            const buscaAdmin = yield Admin_1.default.findOne({
-                where: {
-                    Nome: NomeAdmin,
-                    Senha: md5(SenhaAdmin)
-                }
-            });
-            if (buscaAdmin == null) {
-                return false;
-            }
-            else {
-                return true;
             }
         });
     }
