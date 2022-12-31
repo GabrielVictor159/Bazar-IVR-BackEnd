@@ -6,7 +6,7 @@ const imageService = new ImageService();
 const ImageController = express.Router();
 
 ImageController.post('/images/:NomeAdmin/:SenhaAdmin', async(req, res, next) => {
-  console.log('Acessou o método')
+  console.log(req)
    if(await VerificarAdmin(req.params.NomeAdmin, req.params.SenhaAdmin)){
      const resposta =  imageService.saveImage(req)
 
