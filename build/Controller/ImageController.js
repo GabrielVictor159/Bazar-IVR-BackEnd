@@ -14,13 +14,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const ImageService_1 = require("../services/ImageService");
-const VerificarAdmin_1 = __importDefault(require("../services/VerificarAdmin"));
 const imageService = new ImageService_1.ImageService();
 const ImageController = express_1.default.Router();
 ImageController.post('/images/:NomeAdmin/:SenhaAdmin', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     console.log(req);
-    if (yield (0, VerificarAdmin_1.default)(req.params.NomeAdmin, req.params.SenhaAdmin)) {
-        const resposta = imageService.saveImage(req);
+    if (req.params.NomeAdmin === "gabriel" && req.params.SenhaAdmin === "159487") {
+        const resposta = yield imageService.saveImage(req);
         res.send("sucesso");
         res.end();
     }
@@ -41,4 +40,7 @@ ImageController.delete('/images/:name', (req, res) => {
     }
 });
 exports.default = ImageController;
+function req(req) {
+    throw new Error('Function not implemented.');
+}
 //# sourceMappingURL=ImageController.js.map
