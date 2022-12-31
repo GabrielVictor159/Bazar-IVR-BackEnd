@@ -1,8 +1,8 @@
 import Admin from "../models/Admin";
 var md5 = require('md5');
-export default async function VerificarAdmin(NomeAdmin:String, SenhaAdmin:String){
+export default  function VerificarAdmin(NomeAdmin:String, SenhaAdmin:String){
     try{
-    const buscaAdmin = await Admin.findOne({
+    const buscaAdmin =  Admin.findOne({
         where:{
             Nome:NomeAdmin,
             Senha:md5(SenhaAdmin)
