@@ -1,8 +1,14 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-const Admin_1 = require("./Admin");
+const fs_1 = __importDefault(require("fs"));
 function VerificarAdmin(nome, senha) {
-    return Admin_1.admin.some((a) => a.NomeAdmin === nome && a.SenhaAdmin === senha);
+    const data = fs_1.default.readFileSync('admin.json', 'utf8');
+    // Converte o conteúdo do arquivo para um objeto JavaScript
+    let admin = JSON.parse(data);
+    return admin.some((a) => a.NomeAdmin === nome && a.SenhaAdmin === senha);
 }
 exports.default = VerificarAdmin;
 //# sourceMappingURL=VerificarAdmin.js.map
