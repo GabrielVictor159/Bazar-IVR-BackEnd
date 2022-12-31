@@ -19,7 +19,7 @@ app.use(cors({
 app.get('/', async (req,res) =>{
  res.send("OK");
 });
-const port = process.env.PORT || 3030
+
 app.use('/', AdminController);
 app.use("/",UsuariosController);
 app.use('/',ProdutoController);
@@ -44,6 +44,6 @@ app.post('/cadastrarCompra', async (req, res)=>{
     })
     
 })
-app.listen(port, () =>{
+app.listen(3030, () =>{
     console.log('teste')
 })

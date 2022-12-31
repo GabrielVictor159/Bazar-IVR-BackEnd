@@ -1,26 +1,18 @@
-import  AdminDTO  from "../dto/AdminDTO.js";
-import admin  from '../models/Admin.js';
-export class AdminService{
-    constructor(){}
 
-    Login = async(Nome:String, Senha:String)=>{
-        
-        try{
-            let dto = new AdminDTO(Nome, Senha);
-            let nome = dto.getNome();
-            let senha = dto.getSenha();
-            const busca = await admin.findOne({where:{Nome: nome, Senha: senha}})
-            if(busca===null){
-                return "Usuario ou senha errados"
-            }
-            else{
-                return busca
-            }
-        }
-        catch{
-            return "Por favor informe valores validos"
-        }
+import VerificarAdmin from './VerificarAdmin';
+
+export class AdminService {
+    constructor() { }
+
+    Login = (Nome: String, Senha: String) => {
+      const resposta =  VerificarAdmin(Nome, Senha)
+      return resposta
+
     }
+
+    
+   
+
 
 
 }

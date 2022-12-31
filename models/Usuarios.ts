@@ -39,6 +39,8 @@ import db from "../Infra/DB"
    idCompras:{
     type: Sequelize.INTEGER,
     allowNull:true,
+    references: 'compras', 
+    referencesKey: 'idCompra' 
    }
 },{timestamps: false})
 Usuarios.sync();

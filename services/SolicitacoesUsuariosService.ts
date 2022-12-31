@@ -115,8 +115,8 @@ export class SolicitacoesUsuariosService {
       return exception.message
     }
   }
-  findByEmail = async(NomeAdmin:String, SenhaAdmin:String, Email:String)=>{
-    if(await VerificarAdmin(NomeAdmin, SenhaAdmin)){
+  findByEmail = async(NomeAdmin:string, SenhaAdmin:string, Email:String)=>{
+    if(VerificarAdmin(NomeAdmin, SenhaAdmin)){
      const busca = await Usuarios.findOne({
          where:{
              Email:Email
