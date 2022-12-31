@@ -45,7 +45,7 @@ export class AdminService {
            
         }
         
-        fs.writeFileSync('./admin.js', `export const admin: Admin[] = ${JSON.stringify(admin)};`);
+        fs.writeFileSync('./admin.ts', `export const admin: Admin[] = ${JSON.stringify(admin)};`);
     }
     }
 
