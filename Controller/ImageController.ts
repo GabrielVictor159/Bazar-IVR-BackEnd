@@ -7,7 +7,7 @@ const imageService = new ImageService();
 const ImageController = express.Router();
 
 ImageController.post('/images/:NomeAdmin/:SenhaAdmin', (req:any, res:any) => {
-  if( VerificarAdmin(req.params.NomeAdmin, req.params.SenhaAdmin)){
+console.log(req.params.NomeAdmin)
     try{
     imageService.saveImage(req, res)
     res.redirect("/")
@@ -16,11 +16,9 @@ ImageController.post('/images/:NomeAdmin/:SenhaAdmin', (req:any, res:any) => {
       console.log(err.message)
       res.sendStatus(500)
     }
-  }
   
-    else{
-      res.sendStatus(500)
-    }
+  
+   
   
 
   });

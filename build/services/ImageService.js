@@ -27,7 +27,7 @@ class ImageService {
                     return name + ".png";
                 },
             });
-            form.parse(req.body, (err, fields, files) => {
+            form.parse(req, (err, fields, files) => {
                 if (err) {
                     resposta = JSON.stringify({
                         result: "failed",

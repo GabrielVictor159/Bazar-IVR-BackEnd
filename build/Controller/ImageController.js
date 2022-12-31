@@ -5,22 +5,17 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const ImageService_1 = require("../services/ImageService");
-const VerificarAdmin_1 = __importDefault(require("../services/VerificarAdmin"));
 var md5 = require('md5');
 const imageService = new ImageService_1.ImageService();
 const ImageController = express_1.default.Router();
 ImageController.post('/images/:NomeAdmin/:SenhaAdmin', (req, res) => {
-    if ((0, VerificarAdmin_1.default)(req.params.NomeAdmin, req.params.SenhaAdmin)) {
-        try {
-            imageService.saveImage(req, res);
-            res.redirect("/");
-        }
-        catch (err) {
-            console.log(err.message);
-            res.sendStatus(500);
-        }
+    console.log(req.params.NomeAdmin);
+    try {
+        imageService.saveImage(req, res);
+        res.redirect("/");
     }
-    else {
+    catch (err) {
+        console.log(err.message);
         res.sendStatus(500);
     }
 });
