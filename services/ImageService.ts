@@ -33,7 +33,7 @@ export class ImageService{
         return resposta
     }
     deleteImage =  (name:any)=>{
-        const path = `./images/${name}.png`
+        const path = `../images/${name}.png`
         let resposta:boolean = true;
       fs.unlink(path, (err:any)=>{
             if(err){
