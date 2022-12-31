@@ -1,7 +1,6 @@
 node_modules/
 .expo/
 dist/
-build/
 git-cryp-key.*
 npm-debug.*
 *.jks

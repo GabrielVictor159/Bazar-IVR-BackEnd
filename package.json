@@ -4,9 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "mkdirp build && copy services/admin.json build",
     "dev": "echo \"Error: no test specified\" && exit 1",
-    "compile": "tsc -w && copy services/admin.json build",
+    "compile": "tsc -w",
     "start": "node ./build/index.js"
   },
   "keywords": [],
