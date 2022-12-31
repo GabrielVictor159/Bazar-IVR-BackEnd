@@ -24,7 +24,7 @@ UsuarioController.get('/Usuarios/:Email/:Senha', (req, res) => __awaiter(void 0,
 UsuarioController.get('/UsuariosConfirmar/:idSolicitacao', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const Cadastro = yield usuarioService.Cadastrar(parseInt(req.params.idSolicitacao));
     if (Cadastro === "Usuario Criado") {
-        res.redirect(Keys_1.default.linkFront + "/SucessoRegistrar");
+        res.redirect(Keys_1.default.linkFront + "SucessoRegistrar");
     }
     else {
         res.send("Houve algum erro");

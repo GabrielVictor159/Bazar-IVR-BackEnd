@@ -13,7 +13,7 @@ UsuarioController.get('/Usuarios/:Email/:Senha', async(req,res)=>{
 UsuarioController.get('/UsuariosConfirmar/:idSolicitacao', async(req,res)=>{
     const Cadastro = await usuarioService.Cadastrar(parseInt(req.params.idSolicitacao));
     if(Cadastro ==="Usuario Criado"){
-        res.redirect(Keys.linkFront+"/SucessoRegistrar")
+        res.redirect(Keys.linkFront+"SucessoRegistrar")
     }
     else{
         res.send("Houve algum erro")

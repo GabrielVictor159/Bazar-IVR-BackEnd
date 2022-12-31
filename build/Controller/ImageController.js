@@ -18,6 +18,7 @@ const VerificarAdmin_1 = __importDefault(require("../services/VerificarAdmin"));
 const imageService = new ImageService_1.ImageService();
 const ImageController = express_1.default.Router();
 ImageController.post('/images/:NomeAdmin/:SenhaAdmin', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log('Acessou o método');
     if (yield (0, VerificarAdmin_1.default)(req.params.NomeAdmin, req.params.SenhaAdmin)) {
         const resposta = imageService.saveImage(req);
         res.send("sucesso");
