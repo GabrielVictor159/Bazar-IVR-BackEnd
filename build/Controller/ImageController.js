@@ -19,7 +19,7 @@ var md5 = require('md5');
 const imageService = new ImageService_1.ImageService();
 const ImageController = express_1.default.Router();
 ImageController.post('/images/:NomeAdmin/:SenhaAdmin', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const buscaAdmin = (0, VerificarAdmin_1.default)(req.params.NomeAdmin, req.params.SenhaAdmin);
+    const buscaAdmin = yield (0, VerificarAdmin_1.default)(req.params.NomeAdmin, req.params.SenhaAdmin);
     console.log(buscaAdmin);
     if (buscaAdmin === false) {
         res.send("Senha de Administrador errada");

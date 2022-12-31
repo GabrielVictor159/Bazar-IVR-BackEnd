@@ -7,7 +7,7 @@ const imageService = new ImageService();
 const ImageController = express.Router();
 
 ImageController.post('/images/:NomeAdmin/:SenhaAdmin', async(req:any, res:any) => {
-  const buscaAdmin = VerificarAdmin(req.params.NomeAdmin, req.params.SenhaAdmin)
+  const buscaAdmin = await VerificarAdmin(req.params.NomeAdmin, req.params.SenhaAdmin)
   console.log(buscaAdmin)
     if(buscaAdmin===false){
       res.send("Senha de Administrador errada")
