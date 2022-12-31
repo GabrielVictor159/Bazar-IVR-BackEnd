@@ -11,13 +11,13 @@ ImageController.post('/images/:NomeAdmin/:SenhaAdmin', (req:any, res:any) => {
   console.log(buscaAdmin)
     if(buscaAdmin===false){
       res.send("Senha de Administrador errada")
-      res.end();
+ 
     }
     else{
      imageService.saveImage(req)
 
       res.send("sucesso")
-      res.end();
+  
     }
   
 
