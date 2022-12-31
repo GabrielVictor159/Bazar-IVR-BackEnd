@@ -10,7 +10,7 @@ const Keys = {
     databaseHost: 'us-cdbr-east-06.cleardb.net',
     databaseType: 'mysql',
     databaseHostPort: 3306,
-    link: process.env.ROOT_URL || 'http://localhost:3030/',
+    link: 'https://bazarivrbackend.herokuapp.com/',
     linkFront: "http://localhost:5173/",
     mercadoPagoAcessToken: "TEST-3779003586166731-112918-e00d5b747e7334ee4c0b9f69a4d2b4f3-235134615",
 };
