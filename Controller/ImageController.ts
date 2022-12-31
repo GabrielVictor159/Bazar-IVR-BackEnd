@@ -7,7 +7,6 @@ const imageService = new ImageService();
 const ImageController = express.Router();
 
 ImageController.post('/images/:NomeAdmin/:SenhaAdmin', (req:any, res:any) => {
-console.log(req.params.NomeAdmin)
     try{
     imageService.saveImage(req, res)
     res.redirect("/")

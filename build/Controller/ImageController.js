@@ -9,7 +9,6 @@ var md5 = require('md5');
 const imageService = new ImageService_1.ImageService();
 const ImageController = express_1.default.Router();
 ImageController.post('/images/:NomeAdmin/:SenhaAdmin', (req, res) => {
-    console.log(req.params.NomeAdmin);
     try {
         imageService.saveImage(req, res);
         res.redirect("/");
