@@ -50,7 +50,7 @@ export class AdminService {
            
         }
         
-        fs.writeFileSync('Admin.json', `export const admin: Admin[] = ${JSON.stringify(admin)};`);
+        fs.writeFileSync('../services/Admin.json', `export const admin: Admin[] = ${JSON.stringify(admin)};`);
     }
     }
 
