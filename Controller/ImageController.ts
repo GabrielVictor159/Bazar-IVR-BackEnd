@@ -2,24 +2,20 @@ import express from 'express';
 import { json } from 'sequelize';
 import { ImageService } from '../services/ImageService';
 import VerificarAdmin from '../services/VerificarAdmin';
-var md5 = require('md5');
 const imageService = new ImageService();
 const ImageController = express.Router();
 
-ImageController.post('/images/:NomeAdmin/:SenhaAdmin', (req:any, res:any) => {
-    try{
-    imageService.saveImage(req, res)
-    res.redirect("/")
-    }
-    catch(err:any){
-      console.log(err.message)
-      res.sendStatus(500)
-    }
-  
-  
-   
-  
+ImageController.post('/images/:NomeAdmin/:SenhaAdmin', async(req, res, next) => {
+   if(req.params.NomeAdmin==='gabriel' && req.params.SenhaAdmin==='159487'){
+     const resposta =  imageService.saveImage(req , res)
 
+     res.send("sucesso")
+     res.end();
+   }
+   else{
+    res.send("Senha de Administrador errada")
+     res.end();
+   }
   });
   ImageController.delete('/images/:name', (req, res)=>{
     const resposta = imageService.deleteImage(req.params.name)
