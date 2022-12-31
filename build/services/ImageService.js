@@ -17,7 +17,7 @@ const formidable_1 = __importDefault(require("formidable"));
 var fs = require('fs');
 class ImageService {
     constructor() {
-        this.saveImage = (req) => __awaiter(this, void 0, void 0, function* () {
+        this.saveImage = (req, res) => __awaiter(this, void 0, void 0, function* () {
             let resposta;
             var form = new formidable_1.default.IncomingForm({
                 uploadDir: "/app/images",
@@ -41,7 +41,7 @@ class ImageService {
                     });
                 }
             });
-            return resposta;
+            res.send(resposta);
         });
         this.deleteImage = (name) => {
             const path = `/app/images/${name}.png`;

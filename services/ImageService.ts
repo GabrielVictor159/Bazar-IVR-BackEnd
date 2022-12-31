@@ -3,7 +3,7 @@ var fs = require('fs');
 export class ImageService{
     constructor(){}
 
-    saveImage = async(req:any)=>{
+    saveImage = async(req:any, res:any)=>{
         let resposta:any;
         var form = new formidable.IncomingForm({
             uploadDir:"/app/images",
@@ -30,7 +30,7 @@ export class ImageService{
             }
         
         })
-        return resposta
+        res.send(resposta)
     }
     deleteImage =  (name:any)=>{
         const path = `/app/images/${name}.png`
