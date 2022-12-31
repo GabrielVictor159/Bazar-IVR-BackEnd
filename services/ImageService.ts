@@ -6,7 +6,7 @@ export class ImageService{
     saveImage = async(req:any)=>{
         let resposta:any;
         var form = new formidable.IncomingForm({
-            uploadDir:"../images",
+            uploadDir:"/app/images",
             multiples: true,
             keepExtensions:true,
             filename(name, ext, part, form) {
@@ -33,7 +33,7 @@ export class ImageService{
         return resposta
     }
     deleteImage =  (name:any)=>{
-        const path = `../images/${name}.png`
+        const path = `/app/images/${name}.png`
         let resposta:boolean = true;
       fs.unlink(path, (err:any)=>{
             if(err){

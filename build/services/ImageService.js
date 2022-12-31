@@ -20,7 +20,7 @@ class ImageService {
         this.saveImage = (req) => __awaiter(this, void 0, void 0, function* () {
             let resposta;
             var form = new formidable_1.default.IncomingForm({
-                uploadDir: "../images",
+                uploadDir: "/app/images",
                 multiples: true,
                 keepExtensions: true,
                 filename(name, ext, part, form) {
@@ -44,7 +44,7 @@ class ImageService {
             return resposta;
         });
         this.deleteImage = (name) => {
-            const path = `../images/${name}.png`;
+            const path = `/app/images/${name}.png`;
             let resposta = true;
             fs.unlink(path, (err) => {
                 if (err) {
