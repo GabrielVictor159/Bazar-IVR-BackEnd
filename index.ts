@@ -10,6 +10,7 @@ import UsuariosController from "./Controller/UsuariosController";
 import ProdutoController from './Controller/ProdutoController';
 import SolicitacoesEmailController from './Controller/SolicitacoesEmailController';
 import ImageController from './Controller/ImageController';
+import CompraController from './Controller/CompraController';
 app.use(express.json());
 const cors = require('cors');
 app.use(cors({
@@ -24,6 +25,7 @@ app.use("/",UsuariosController);
 app.use('/',ProdutoController);
 app.use('/',SolicitacoesEmailController)
  app.use('/',ImageController)
+ app.use('/', CompraController)
 app.use(express.static('public')); 
 app.use('/images', express.static('images'));
 app.post('/cadastrarCompra', async (req, res)=>{
