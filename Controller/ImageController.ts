@@ -14,9 +14,9 @@ ImageController.post('/images/:NomeAdmin/:SenhaAdmin', (req:any, res:any) => {
  
     }
     else{
-     imageService.saveImage(req)
+    const resposta = imageService.saveImage(req)
 
-      res.send("sucesso")
+      res.send(resposta)
   
     }
   

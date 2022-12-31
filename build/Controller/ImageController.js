@@ -16,8 +16,8 @@ ImageController.post('/images/:NomeAdmin/:SenhaAdmin', (req, res) => {
         res.send("Senha de Administrador errada");
     }
     else {
-        imageService.saveImage(req);
-        res.send("sucesso");
+        const resposta = imageService.saveImage(req);
+        res.send(resposta);
     }
 });
 ImageController.delete('/images/:name', (req, res) => {
