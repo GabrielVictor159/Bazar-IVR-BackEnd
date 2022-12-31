@@ -6,7 +6,7 @@ export class ImageService{
     saveImage = async(req:any)=>{
         let resposta:any;
         var form = new formidable.IncomingForm({
-            uploadDir:"./images",
+            uploadDir:"../images",
             multiples: true,
             keepExtensions:true,
             filename(name, ext, part, form) {
